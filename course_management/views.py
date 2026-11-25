@@ -7,7 +7,7 @@ from rest_framework.response import Response
 
 from course_management.serializers import CourseSerializer
 from course_management.models import Course
-from course_management.permissions import IsOwner
+from accounts.permissions import IsOwner
 
 # Create your views here.
 
