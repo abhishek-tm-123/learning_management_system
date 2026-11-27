@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from accounts.views import TrainerSignUpView,TrainerProfileRetrieveUpdateView
+from accounts.views import TrainerSignUpView,TrainerProfileRetrieveUpdateView,StudentSignUpView,StudentProfileRetrieveUpdateView
 
 from course_management.views import CourseListCreateView,CourseRetrieveUpdateDeleteView
 
@@ -42,4 +42,7 @@ urlpatterns = [
     #lesson
     path('module/<int:pk>/lesson/',LessonCreateView.as_view()),
     path('lesson/<int:pk>/',LessonRetrieveUpdateDeleteView.as_view()),
+    #student
+    path('student/signup/',StudentSignUpView.as_view()),
+    path('student/profile/',StudentProfileRetrieveUpdateView.as_view()),
 ]

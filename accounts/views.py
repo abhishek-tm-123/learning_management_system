@@ -3,10 +3,10 @@ from django.shortcuts import render
 from rest_framework.views import APIView
 from rest_framework import authentication,permissions
 from rest_framework.response import Response
-from rest_framework.generics import CreateAPIView
+from rest_framework.generics import CreateAPIView,RetrieveAPIView,UpdateAPIView
 
-from accounts.serializers import TrainerSerializer,TrainerProfileSerializer
-from accounts.models import TrainerProfile
+from accounts.serializers import TrainerSerializer,TrainerProfileSerializer,StudentSerializer,StudentProfileSerializer
+from accounts.models import TrainerProfile,StudentProfile
 # Create your views here.
 
 
@@ -43,3 +43,16 @@ class TrainerProfileRetrieveUpdateView(APIView):
             return Response(serializer_instance.data)
         else:
             return Response(serializer_instance.errors)
+        
+class StudentSignUpView(CreateAPIView):
+    serializer_class = StudentSerializer
+    
+class StudentProfileRetrieveUpdateView(RetrieveAPIView,UpdateAPIView):
+    authentication_classes = [authentication.TokenAuthentication]
+    
+    permission_classes = [permissions.IsAuthenticated]
+    
+    serializer_class = StudentProfileSerializer
+    
+    def get_object(self):
+        return StudentProfile.objects.get(user=self.request.user)
